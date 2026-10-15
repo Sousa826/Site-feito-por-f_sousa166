@@ -1,0 +1,62 @@
+<!-- 1. Estilização da mensagem de Boas-Vindas -->
+<style>
+  .boas-vindas-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 9999;
+    font-family: 'Arial', sans-serif;
+    pointer-events: none; /* Garante que não vai travar os cliques do usuário */
+  }
+  .boas-vindas-texto {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #ff4757;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    animation: estourar 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  @keyframes estourar {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0; } /* Some após o estouro */
+  }
+</style>
+
+<!-- 2. Estrutura da mensagem -->
+<div class="boas-vindas-container">
+  <div class="boas-vindas-texto">🎉 SEJA MUITO BEM-VINDO! 🥳</div>
+</div>
+
+<!-- 3. Script da Enxurrada de Confetes -->
+<script src="https://jsdelivr.net"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    // Configuração do estouro principal
+    var duration = 4 * 1000; // Tempo da enxurrada (4 segundos)
+    var end = Date.now() + duration;
+
+    (function frame() {
+      // Solta confetes da esquerda
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.8 }
+      });
+      // Solta confetes da direita
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.8 }
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    }());
+  });
+</script>
